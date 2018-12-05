@@ -121,6 +121,12 @@ int main(int argc, const char * argv[])
     area = round(area * 1000) / 1000;
     std::cout << area << std::endl;
 
+    //Create Figure
+    Figure myFigure(polygonPtr, numberOfShapes);
+
+    //Print types in myFigure
+    std::cout << myFigure;
+
     //Free memory
     delete []numbersPtr;
     numbersPtr = nullptr;

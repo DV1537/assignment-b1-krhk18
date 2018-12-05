@@ -1,6 +1,7 @@
 #ifndef FIGURE_H
 #define FIGURE_H
-
+#include <string>
+#include <iostream>
 #include "Polygon.h"
 
 class Figure
@@ -12,6 +13,7 @@ class Figure
     public:
         Figure(Polygon *polygonPtr, int numberOfPolygons);
         ~Figure();
+        friend std::ostream &operator<<(std::ostream &out, const Figure &figure);
 };
 
 #endif
