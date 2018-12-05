@@ -7,6 +7,7 @@
 #include "Line.h"
 #include "Triangle.h"
 #include "Polygon.h"
+#include "Figure.h"
 
 int main(int argc, const char * argv[])
 {

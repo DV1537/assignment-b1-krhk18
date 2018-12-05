@@ -1,22 +1,22 @@
 #include "Figure.h"
 
-Figure::Figure(Shape *sPtr, int numberOfShapes)
+Figure::Figure(Polygon *pPtr, int numberOfPolygons)
 {
-    this->numberOfShapes = numberOfShapes;
-    capacity = numberOfShapes;
+    this->numberOfPolygons = numberOfPolygons;
+    capacity = numberOfPolygons;
     
-    shapePtr = new Position[capacity];
-    for(int i = 0; i < numberOfShapes; i++)
+    polygonPtr = new Polygon[capacity];
+    for(int i = 0; i < numberOfPolygons; i++)
     {
-        shapePtr[i] = sPtr[i];
+        polygonPtr[i] = pPtr[i];
     }
 }
 
 Figure::~Figure()
 {
-    if(shapePtr)
+    if(polygonPtr)
     {
-        delete[] shapePtr;
-        shapePtr = nullptr;
+        delete[] polygonPtr;
+        polygonPtr = nullptr;
     }
 }

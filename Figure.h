@@ -1,14 +1,16 @@
 #ifndef FIGURE_H
 #define FIGURE_H
 
+#include "Polygon.h"
+
 class Figure
 {
     private:
-        Shape *shapePtr;
-        int numberOfShapes;
+        Polygon *polygonPtr;
+        int numberOfPolygons;
         int capacity;
     public:
-        Figure(Shape *shapePtr, int numberOfShapes);
+        Figure(Polygon *polygonPtr, int numberOfPolygons);
         ~Figure();
 };
 
