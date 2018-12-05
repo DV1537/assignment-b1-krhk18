@@ -13,6 +13,7 @@ class Figure
     public:
         Figure(Polygon *polygonPtr, int numberOfPolygons);
         ~Figure();
+        void addShape(const Polygon &polygon);
         friend std::ostream &operator<<(std::ostream &out, const Figure &figure);
 };
 

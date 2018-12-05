@@ -21,6 +21,24 @@ Figure::~Figure()
     }
 }
 
+void Figure::addShape(const Polygon &polygon)
+{
+    if(numberOfPolygons >= capacity)
+    {
+        capacity += 1;
+        Polygon *tempPtr = new Polygon[capacity];
+        for(int i = 0; i < numberOfPolygons; i++)
+        {
+            tempPtr[i] = polygonPtr[i];
+        }
+        delete[] polygonPtr;
+        polygonPtr = tempPtr;
+        tempPtr = nullptr;
+    }
+    polygonPtr[numberOfPolygons] = polygon;
+    numberOfPolygons++;
+}
+
 std::ostream &operator<<(std::ostream &out, const Figure &figure)
 {
     //Print type

@@ -125,6 +125,22 @@ int main(int argc, const char * argv[])
     Figure myFigure(polygonPtr, numberOfShapes);
 
     //Print types in myFigure
+    std::cout << "Types of myFigure\n";
+    std::cout << myFigure;
+
+    //Create polygon and add to figure + print new types of myFigure
+    Position positionOne, positionTwo;
+    positionOne.xCoord = 2;
+    positionOne.yCoord = 3;
+    positionTwo.xCoord = 2;
+    positionTwo.yCoord = 5;
+
+    Position positionArray[2] = {positionOne, positionTwo};
+
+    Polygon polyToAdd(positionArray, 2);
+    myFigure.addShape(polyToAdd);
+
+    std::cout << "Types of myFigure\n";
     std::cout << myFigure;
 
     //Free memory
