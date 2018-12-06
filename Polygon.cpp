@@ -97,9 +97,9 @@ std::ostream &operator<<(std::ostream &out, const Polygon &polygon)
     {
         //Round to 3 decimal digits
         double xCoord = polygon.posPtr[i].xCoord;
-        xCoord = round(xCoord * 1000) / 1000;
+        xCoord = roundf(xCoord * 1000) / 1000;
         double yCoord = polygon.posPtr[i].yCoord;
-        yCoord = round(yCoord * 1000) / 1000;
+        yCoord = roundf(yCoord * 1000) / 1000;
         
         out << "X: " << xCoord << ", Y: " << yCoord << std::endl;
     }
