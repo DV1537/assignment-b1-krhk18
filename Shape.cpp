@@ -1,5 +1,13 @@
 #include "Shape.h"
 
+void Shape::getPositions(Position *positionPtr) const
+{
+    for (int i = 0; i < nrOfPositions; i++)
+    {
+        positionPtr[i] = posPtr[i];
+    }
+}
+
 //Returns mid position by adding x-coords and y-coord seperatley
 //then devide the total by the number of positions.
 Position Shape::position()

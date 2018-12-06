@@ -15,6 +15,14 @@ class Shape
         {
             return type;
         }
+
+        int getNrOfPositions() const
+        {
+            return nrOfPositions;
+        }
+
+        void getPositions(Position *positionPtr) const;
+
         virtual double area() = 0;                      //returns area of the object, or -1 if the shape is concave, intersecting, or does not have an area
 
         virtual double circumreference() = 0;           //returns circumreference of the object  (returns length of line if line, or -1 if dot)
