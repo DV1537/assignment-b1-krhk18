@@ -1,43 +1,43 @@
 #include <iostream>
 #include "Figure.h"
 
-Figure::Figure(Polygon *pPtr, int numberOfPolygons)
+Figure::Figure(Shape *sPtr, int numberOfShapes)
 {
-    this->numberOfPolygons = numberOfPolygons;
-    capacity = numberOfPolygons;
+    this->numberOfShapes = numberOfShapes;
+    capacity = numberOfShapes;
     
-    polygonPtr = new Polygon[capacity];
-    for(int i = 0; i < numberOfPolygons; i++)
+    shapePtr = new Polygon[capacity];
+    for(int i = 0; i < numberOfShapes; i++)
     {
-        polygonPtr[i] = pPtr[i];
+        shapePtr[i] = sPtr[i];
     }
 }
 
 Figure::~Figure()
 {
-    if(polygonPtr)
+    if(shapePtr)
     {
-        delete[] polygonPtr;
-        polygonPtr = nullptr;
+        delete[] shapePtr;
+        shapePtr = nullptr;
     }
 }
 
-void Figure::addShape(const Polygon &polygon)
+void Figure::addShape(const Shape &shape)
 {
-    if(numberOfPolygons >= capacity)
+    if(numberOfShapes >= capacity)
     {
         capacity += 1;
-        Polygon *tempPtr = new Polygon[capacity];
-        for(int i = 0; i < numberOfPolygons; i++)
+        Shape *tempPtr = new Polygon[capacity];
+        for(int i = 0; i < numberOfShapes; i++)
         {
-            tempPtr[i] = polygonPtr[i];
+            tempPtr[i] = shapePtr[i];
         }
-        delete[] polygonPtr;
-        polygonPtr = tempPtr;
+        delete[] shapePtr;
+        shapePtr = tempPtr;
         tempPtr = nullptr;
     }
-    polygonPtr[numberOfPolygons] = polygon;
-    numberOfPolygons++;
+    shapePtr[numberOfShapes] = shape;
+    numberOfShapes++;
 }
 
 Position* Figure::getBoundingBox()
@@ -53,13 +53,13 @@ Position* Figure::getBoundingBox()
     double yMax = 0.0;
 
     //Loop through Polygons in the Figure.
-    for(int i = 0; i < numberOfPolygons; i++)
+    for(int i = 0; i < numberOfShapes; i++)
     {
         //Create new pointer for positions in current polygon
-        int numberOfPositions = polygonPtr[i].getNrOfPositions();
+        int numberOfPositions = shapePtr[i].getNrOfPositions();
         Position *tempPositionPtr = new Position[numberOfPositions];
         //Get positions of current polygon
-        polygonPtr[i].getPositions(tempPositionPtr);
+        shapePtr[i].getPositions(tempPositionPtr);
         for(int t = 0; t < numberOfPositions; t++)
             std::cout << "X: " << tempPositionPtr[t].xCoord << ", Y: " << tempPositionPtr[t].yCoord << std::endl;
         std::cout << "------------\n";
@@ -116,9 +116,9 @@ Position* Figure::getBoundingBox()
 std::ostream &operator<<(std::ostream &out, const Figure &figure)
 {
     //Print type
-    for(int i = 0; i < figure.numberOfPolygons; i++)
+    for(int i = 0; i < figure.numberOfShapes; i++)
     {
-        out << figure.polygonPtr[i].getType() << "\n";
+        out << figure.shapePtr[i].getType() << "\n";
     }
     return out;   
 }
