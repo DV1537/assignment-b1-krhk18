@@ -14,6 +14,7 @@ class Figure
         Figure(Polygon *polygonPtr, int numberOfPolygons);
         ~Figure();
         void addShape(const Polygon &polygon);
+        Position* getBoundingBox();
         friend std::ostream &operator<<(std::ostream &out, const Figure &figure);
 };
 

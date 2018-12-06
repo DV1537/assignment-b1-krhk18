@@ -129,11 +129,7 @@ int main(int argc, const char * argv[])
     std::cout << myFigure;
 
     //Create polygon and add to figure + print new types of myFigure
-    Position positionOne, positionTwo;
-    positionOne.xCoord = 2;
-    positionOne.yCoord = 3;
-    positionTwo.xCoord = 2;
-    positionTwo.yCoord = 5;
+    Position positionOne(2, 3), positionTwo(2, 5);
 
     Position positionArray[2] = {positionOne, positionTwo};
 
@@ -143,7 +139,23 @@ int main(int argc, const char * argv[])
     std::cout << "Types of myFigure\n";
     std::cout << myFigure;
 
+    //Call boundingBox and store returned pointer to positions
+    Position *boundingBoxPtr;
+    boundingBoxPtr = myFigure.getBoundingBox();
+
+    //Round to 3 decimal digits and print boundingbox corners coordinates
+    for(int i = 0; i < 2; i++)
+    {
+        double xCoord = roundf(boundingBoxPtr[i].xCoord * 1000) / 1000;
+        double yCoord = roundf(boundingBoxPtr[i].yCoord * 1000) / 1000;
+        std::cout << xCoord << " " << yCoord << " ";
+    }
+    std::cout << std::endl;
+
     //Free memory
+    delete []boundingBoxPtr;
+    boundingBoxPtr = nullptr;
+
     delete []numbersPtr;
     numbersPtr = nullptr;
     
