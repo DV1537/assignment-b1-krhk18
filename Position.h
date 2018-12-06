@@ -4,9 +4,7 @@
 struct Position
 {
     double xCoord, yCoord;
-    Position()
-    {
-    }
+    Position();
     Position(double x, double y);
 };
 
