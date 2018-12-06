@@ -110,9 +110,6 @@ Position* Figure::getBoundingBox()
     cornerPtr[1] = bottomRight;
 
     return cornerPtr;
-    
-    //Combine the x and y from the points with the min x and y value into one corner point.
-    //Combine the x and y from the points with the max x and y value into one corner point.
 }
 
 //This is for printing the types of the shapes (polygons) stored in "Figure".
