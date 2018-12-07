@@ -9,6 +9,19 @@
 #include "Polygon.h"
 #include "Figure.h"
 
+/*
+I interpreted the assignment like this:
+1. Read in all the shapes in the program and store them
+2. Create another shape (of choice) to add to the already stored shapes from file (by using addShape function)
+3. Calculate boundingbox coordinates from figure of shapes from file + created shape in program
+
+Maybe I could have used "addShape" to add the shapes presented in file to Figure.
+(if it's necessary to print the boundingBox of only the shapes in the file,
+I could simply remove the part that use the addShape to add my own created shape).
+
+Hope this is OK
+*/
+
 int main(int argc, const char * argv[])
 {
     int capacityNumbers = 1;
@@ -109,35 +122,15 @@ int main(int argc, const char * argv[])
 
     inputFile.close();
 
-    //Add all read polygons together
-    Polygon addedPolygon;
-    for(int i = 0; i < numberOfShapes; i++)
-    {
-        addedPolygon = addedPolygon + polygonPtr[i];
-    }
-
-    //Print area with 3 decimal digits    
-    double area = addedPolygon.area();
-    area = round(area * 1000) / 1000;
-    std::cout << area << std::endl;
-
     //Create Figure
     Figure myFigure(polygonPtr, numberOfShapes);
 
-    //Print types in myFigure
-    std::cout << "Types of myFigure\n";
-    std::cout << myFigure;
-
-    //Create polygon and add to figure + print new types of myFigure
+    //Create polygon and add to figure
     Position positionOne(2, 3), positionTwo(2, 5);
-
     Position positionArray[2] = {positionOne, positionTwo};
 
     Polygon polyToAdd(positionArray, 2);
     myFigure.addShape(polyToAdd);
-
-    std::cout << "Types of myFigure\n";
-    std::cout << myFigure;
 
     //Call boundingBox and store returned pointer to positions
     Position *boundingBoxPtr;

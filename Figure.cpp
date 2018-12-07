@@ -62,9 +62,6 @@ Position* Figure::getBoundingBox()
         Position *tempPositionPtr = new Position[numberOfPositions];
         //Get positions of current polygon
         shapePtr[i].getPositions(tempPositionPtr);
-        for(int t = 0; t < numberOfPositions; t++)
-            std::cout << "X: " << tempPositionPtr[t].xCoord << ", Y: " << tempPositionPtr[t].yCoord << std::endl;
-        std::cout << "------------\n";
 
         //Find min- and max- values of x and y
         if(i == 0)
@@ -91,21 +88,15 @@ Position* Figure::getBoundingBox()
                 yMax = tempPositionPtr[j].yCoord;
             }
         }
-        std::cout << "Max so far: " << "X: " << xMax << ", Y: " << yMax << std::endl;
-        std::cout << "Min so far: " << "X: " << xMin << ", Y: " << yMin << std::endl;
         
         //Free memory
         delete []tempPositionPtr;
         tempPositionPtr = nullptr;
     }
-    std::cout << "Total max: " << "X: " << xMax << ", Y: " << yMax << std::endl;
-    std::cout << "Total min: " << "X: " << xMin << ", Y: " << yMin << std::endl;
 
     //Make position top left corner (xMin, yMax) and bottom right corner (xMax, yMin)
     Position topLeft(xMin, yMax);
-    std::cout << "Position top left: " << "X: " << topLeft.xCoord << ", Y: " << topLeft.yCoord << std::endl;
     Position bottomRight(xMax, yMin);
-    std::cout << "Position bottom right: " << "X: " << bottomRight.xCoord << ", Y: " << bottomRight.yCoord << std::endl;
     
     Position *cornerPtr = new Position[2];
     cornerPtr[0] = topLeft;
