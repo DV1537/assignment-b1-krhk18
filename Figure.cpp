@@ -6,7 +6,7 @@ Figure::Figure(Shape *sPtr, int numberOfShapes)
     this->numberOfShapes = numberOfShapes;
     capacity = numberOfShapes;
     
-    shapePtr = new Polygon[capacity];
+    shapePtr = new Polygon[capacity];               //Since the program is only making polygons, and no other shapes will be created, I have assumed it is OK to make shapePtr point to Polygons.
     for(int i = 0; i < numberOfShapes; i++)
     {
         shapePtr[i] = sPtr[i];
