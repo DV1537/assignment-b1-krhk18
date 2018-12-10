@@ -15,11 +15,10 @@ I interpreted the assignment like this:
 2. Create another shape (of choice) to add to the already stored shapes from file (by using addShape function)
 3. Calculate boundingbox coordinates from figure of shapes from file + created shape in program
 
-Maybe I could have used "addShape" to add the shapes presented in file to Figure.
-(if it's necessary to print the boundingBox of only the shapes in the file,
-I could simply remove the part that use the addShape to add my own created shape).
+OBS! This means I'm printing the boundingBox of the shapes in the file + one added shape in the program!
 
-Hope this is OK
+(Maybe I could have used "addShape" to add the shapes presented in file to Figure.
+This is not how I have interpreted the assignment though).
 */
 
 int main(int argc, const char * argv[])
