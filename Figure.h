@@ -11,7 +11,7 @@ class Figure
         int numberOfShapes;
         int capacity;
     public:
-        Figure(Shape *shapePtr, int numberOfShapes);
+        Figure();
         ~Figure();
         void addShape(const Shape &shape);
         Position* getBoundingBox();

@@ -9,18 +9,6 @@
 #include "Polygon.h"
 #include "Figure.h"
 
-/*
-I interpreted the assignment like this:
-1. Read in all the shapes in the program and store them
-2. Create another shape (of choice) to add to the already stored shapes from file (by using addShape function)
-3. Calculate boundingbox coordinates from figure of shapes from file + created shape in program
-
-OBS! This means I'm printing the boundingBox of the shapes in the file + one added shape in the program!
-
-(Maybe I could have used "addShape" to add the shapes presented in file to Figure.
-This is not how I have interpreted the assignment though).
-*/
-
 int main(int argc, const char * argv[])
 {
     int capacityNumbers = 1;
@@ -35,6 +23,8 @@ int main(int argc, const char * argv[])
     int capacityPolygons = 1;
     Polygon *polygonPtr = new Polygon[capacityPolygons];
     int numberOfShapes;
+    Figure myFigure;
+    double xCoord, yCoord;
 
     inputFile.open(argv[1]);
 
@@ -96,21 +86,8 @@ int main(int argc, const char * argv[])
 
                 //Create polygon object
                 Polygon myPolygonObject(positionPtr, numberOfCoordinates);
+                myFigure.addShape(myPolygonObject);
 
-                //Store polygon object in polygonPtr (by first increasing the size if needed)
-                if(numberOfShapes >= capacityPolygons)
-                {
-                    capacityPolygons += 1;
-                    Polygon *tempPtr = new Polygon[capacityPolygons];  //Create new, bigger
-                    for(int i = 0; i < capacityPolygons - 1; i++)      //move
-                    {
-                        tempPtr[i] = polygonPtr[i];
-                    }
-                    delete []polygonPtr;                //delete old content
-                    polygonPtr = tempPtr;               //make pointer point to new array
-                    tempPtr = nullptr;
-                }
-                polygonPtr[numberOfShapes] = myPolygonObject;
                 numberOfShapes++;
 
                 numberOfElements = 0;
@@ -121,16 +98,6 @@ int main(int argc, const char * argv[])
 
     inputFile.close();
 
-    //Create Figure
-    Figure myFigure(polygonPtr, numberOfShapes);
-
-    //Create polygon and add to figure
-    Position positionOne(2, 3), positionTwo(2, 5);
-    Position positionArray[2] = {positionOne, positionTwo};
-
-    Polygon polyToAdd(positionArray, 2);
-    myFigure.addShape(polyToAdd);
-
     //Call boundingBox and store returned pointer to positions
     Position *boundingBoxPtr;
     boundingBoxPtr = myFigure.getBoundingBox();
@@ -138,8 +105,8 @@ int main(int argc, const char * argv[])
     //Round to 3 decimal digits and print boundingbox corners coordinates
     for(int i = 0; i < 2; i++)
     {
-        double xCoord = roundf(boundingBoxPtr[i].xCoord * 1000) / 1000;
-        double yCoord = roundf(boundingBoxPtr[i].yCoord * 1000) / 1000;
+        xCoord = roundf(boundingBoxPtr[i].xCoord * 1000) / 1000;
+        yCoord = roundf(boundingBoxPtr[i].yCoord * 1000) / 1000;
         std::cout << xCoord << " " << yCoord << " ";
     }
     std::cout << std::endl;

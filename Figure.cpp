@@ -1,18 +1,8 @@
 #include <iostream>
 #include "Figure.h"
 
-Figure::Figure(Shape *sPtr, int numberOfShapes)
+Figure::Figure() : shapePtr(nullptr), numberOfShapes(0), capacity(0)
 {
-    this->numberOfShapes = numberOfShapes;
-    capacity = numberOfShapes;
-    
-    //Since the program is only making polygons, and no other shapes will be created,
-    //I have assumed it is OK to make shapePtr point to Polygons.
-    shapePtr = new Polygon[capacity];
-    for(int i = 0; i < numberOfShapes; i++)
-    {
-        shapePtr[i] = sPtr[i];
-    }
 }
 
 Figure::~Figure()
