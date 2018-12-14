@@ -26,7 +26,7 @@ int main(int argc, const char * argv[])
     Figure myFigure;
     double xCoord, yCoord;
 
-    inputFile.open(argv[1]);
+    inputFile.open("input.in");
 
     //Check if file reads in successfully
     if(!inputFile)
@@ -94,13 +94,20 @@ int main(int argc, const char * argv[])
             }
             //Start over with next line in file
         }
+
+        std::cout << myFigure;
     }
 
     inputFile.close();
 
     //Call boundingBox and store returned pointer to positions
     Position *boundingBoxPtr;
-    boundingBoxPtr = myFigure.getBoundingBox();
+    boundingBoxPtr = myFigure.getTotalBoundingBox();
+
+    std::cout << boundingBoxPtr[0].xCoord << std::endl;
+    std::cout << boundingBoxPtr[0].yCoord << std::endl;
+    std::cout << boundingBoxPtr[1].xCoord << std::endl;
+    std::cout << boundingBoxPtr[1].yCoord << std::endl;
 
     //Round to 3 decimal digits and print boundingbox corners coordinates
     for(int i = 0; i < 2; i++)

@@ -7,14 +7,14 @@
 class Figure
 {
     private:
-        Shape *shapePtr;
+        Polygon *polygonPtr;
         int numberOfShapes;
         int capacity;
     public:
         Figure();
         ~Figure();
-        void addShape(const Shape &shape);
-        Position* getBoundingBox();
+        void addShape(const Polygon &polygon);
+        Position* getTotalBoundingBox();
         friend std::ostream &operator<<(std::ostream &out, const Figure &figure);
 };
 

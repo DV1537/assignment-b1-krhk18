@@ -10,7 +10,7 @@ class Polygon : public Shape
     public:
         Polygon();
 
-        Polygon(Position *pPos, int numPositions);      //Polygon constructor
+        Polygon(Position *pPos, int numPositions);     //Polygon constructor
 
         ~Polygon();     //Polygon destructor
 
@@ -23,6 +23,8 @@ class Polygon : public Shape
         double area();
 
         double circumreference();
+
+        Position* getBoundingBox();
 };
 
 #endif

@@ -1,34 +1,34 @@
 #include <iostream>
 #include "Figure.h"
 
-Figure::Figure() : shapePtr(nullptr), numberOfShapes(0), capacity(0)
+Figure::Figure() : polygonPtr(nullptr), numberOfShapes(0), capacity(0)
 {
 }
 
 Figure::~Figure()
 {
-    if(shapePtr)
+    if(polygonPtr)
     {
-        delete[] shapePtr;
-        shapePtr = nullptr;
+        delete[] polygonPtr;
+        polygonPtr = nullptr;
     }
 }
 
-void Figure::addShape(const Shape &shape)
+void Figure::addShape(const Polygon &polygon)
 {
     if(numberOfShapes >= capacity)
     {
         capacity += 1;
-        Shape *tempPtr = new Polygon[capacity];
+        Polygon *tempPtr = new Polygon[capacity];
         for(int i = 0; i < numberOfShapes; i++)
         {
-            tempPtr[i] = shapePtr[i];
+            tempPtr[i] = polygonPtr[i];
         }
-        delete[] shapePtr;
-        shapePtr = tempPtr;
+        delete[] polygonPtr;
+        polygonPtr = tempPtr;
         tempPtr = nullptr;
     }
-    shapePtr[numberOfShapes] = shape;
+    polygonPtr[numberOfShapes] = polygon;
     numberOfShapes++;
 }
 
@@ -37,7 +37,7 @@ looping trough the polygons in the figure and comparing
 the x- and y-coords to find the highest and lowest of each.
 top left = (lowest x-coord, highest y-coord)
 bottom right = (highest x-coord, lowest y-coord) */
-Position* Figure::getBoundingBox()
+Position* Figure::getTotalBoundingBox()
 {
     double xMin = 0.0;
     double yMin = 0.0;
@@ -47,41 +47,29 @@ Position* Figure::getBoundingBox()
     //Loop through Polygons in the Figure.
     for(int i = 0; i < numberOfShapes; i++)
     {
-        //Create new pointer for positions in current polygon
-        int numberOfPositions = shapePtr[i].getNrOfPositions();
-        Position *tempPositionPtr = new Position[numberOfPositions];
-        //Get positions of current polygon
-        shapePtr[i].getPositions(tempPositionPtr);
-
-        //Find min- and max- values of x and y
-        if(i == 0)
-        {
-            xMin = xMax = tempPositionPtr[0].xCoord;
-            yMin = yMax = tempPositionPtr[0].yCoord;
-        }
-        for(int j = 0; j < numberOfPositions; j++)
-        {
-            if(xMin > tempPositionPtr[j].xCoord)
-            {
-                xMin = tempPositionPtr[j].xCoord;
-            }
-            if(xMax < tempPositionPtr[j].xCoord)
-            {
-                xMax = tempPositionPtr[j].xCoord;
-            }
-            if(yMin > tempPositionPtr[j].yCoord)
-            {
-                yMin = tempPositionPtr[j].yCoord;
-            }
-            if(yMax < tempPositionPtr[j].yCoord)
-            {
-                yMax = tempPositionPtr[j].yCoord;
-            }
-        }
+        Position *tempPosPtr;
+        tempPosPtr = polygonPtr[i].getBoundingBox();
         
+        if(tempPosPtr[0].xCoord < xMin)
+        {
+            xMin = tempPosPtr[0].xCoord;    //xMin
+        }
+        if(tempPosPtr[0].yCoord > yMax)
+        {
+            yMax = tempPosPtr[0].yCoord;    //yMax
+        }
+        if(tempPosPtr[1].xCoord > xMax)
+        {
+           xMax = tempPosPtr[1].xCoord;     //xMax 
+        }
+        if(tempPosPtr[1].yCoord < yMin)
+        {
+            tempPosPtr[1].yCoord;           //yMin
+        }
+                
         //Free memory
-        delete []tempPositionPtr;
-        tempPositionPtr = nullptr;
+        delete []tempPosPtr;
+        tempPosPtr = nullptr;
     }
 
     //Make position top left corner (xMin, yMax) and bottom right corner (xMax, yMin)
@@ -102,7 +90,7 @@ std::ostream &operator<<(std::ostream &out, const Figure &figure)
     //Print type
     for(int i = 0; i < figure.numberOfShapes; i++)
     {
-        out << figure.shapePtr[i].getType() << "\n";
+        out << figure.polygonPtr[i].getType() << "\n";
     }
     return out;   
 }
