@@ -14,7 +14,7 @@ Figure::~Figure()
     }
 }
 
-void Figure::addShape(const Polygon &polygon)
+void Figure::addShape(Polygon *polygon)
 {
     if(numberOfShapes >= capacity)
     {
@@ -28,15 +28,11 @@ void Figure::addShape(const Polygon &polygon)
         polygonPtr = tempPtr;
         tempPtr = nullptr;
     }
-    polygonPtr[numberOfShapes] = polygon;
+    polygonPtr[numberOfShapes] = *polygon;
     numberOfShapes++;
 }
 
-/* Gets boundingbox top left and bottom right positions by
-looping trough the polygons in the figure and comparing
-the x- and y-coords to find the highest and lowest of each.
-top left = (lowest x-coord, highest y-coord)
-bottom right = (highest x-coord, lowest y-coord) */
+// Gets boundingbox top left and bottom right positions
 Position* Figure::getTotalBoundingBox()
 {
     double xMin = 0.0;
