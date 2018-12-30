@@ -8,9 +8,13 @@
 #include "Triangle.h"
 #include "Polygon.h"
 #include "Figure.h"
+#include "BoundingBox.h"
 
 int main(int argc, const char * argv[])
 {
+	//For checking memory leaks
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
     int capacityNumbers = 1;
     double *numbersPtr = new double[capacityNumbers];
     Position *positionPtr = nullptr;
@@ -86,10 +90,11 @@ int main(int argc, const char * argv[])
 
                 //Create pointer to polygon object
                 Polygon *myPolygonObject = new Polygon(positionPtr, numberOfCoordinates);
-                //myFigure.addShape(new Polygon(positionPtr, numberOfCoordinates));
                 myFigure.addShape(myPolygonObject);
                 delete myPolygonObject;
                 myPolygonObject = nullptr;
+				delete positionPtr;
+				positionPtr = nullptr;
 
                 numberOfShapes++;
 
@@ -102,27 +107,23 @@ int main(int argc, const char * argv[])
     inputFile.close();
 
     //Call boundingBox and store returned pointer to positions
-    Position *boundingBoxPtr;
-    boundingBoxPtr = myFigure.getTotalBoundingBox();
+    BoundingBox boundingBox;
+    boundingBox = myFigure.getTotalBoundingBox();
 
     //Round to 3 decimal digits and print boundingbox corners coordinates
-    for(int i = 0; i < 2; i++)
-    {
-        xCoord = roundf(boundingBoxPtr[i].xCoord * 1000) / 1000;
-        yCoord = roundf(boundingBoxPtr[i].yCoord * 1000) / 1000;
-        std::cout << xCoord << " " << yCoord << " ";
-    }
+	std::cout << (boundingBox.topLeft.xCoord * 1000) / 1000 << " ";
+	std::cout << (boundingBox.topLeft.yCoord * 1000) / 1000 << " ";
+	std::cout << (boundingBox.bottomRight.xCoord * 1000) / 1000 << " ";
+	std::cout << (boundingBox.bottomRight.yCoord * 1000) / 1000 << " ";
+   
     std::cout << std::endl;
 
     //Free memory
-    delete []boundingBoxPtr;
-    boundingBoxPtr = nullptr;
+    //delete []boundingBoxPtr;
+    //boundingBoxPtr = nullptr;
 
     delete []numbersPtr;
     numbersPtr = nullptr;
-    
-    delete []positionPtr;
-    positionPtr = nullptr;
 
     //Pause program
     std::cin.get();

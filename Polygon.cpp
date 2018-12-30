@@ -151,7 +151,7 @@ double Polygon::circumreference()
     return circumference;
 }
 
-Position* Polygon::getBoundingBox()
+BoundingBox Polygon::getBoundingBox()
 {
     double xMin = posPtr[0].xCoord;
     double yMin = posPtr[0].yCoord;
@@ -181,10 +181,10 @@ Position* Polygon::getBoundingBox()
     //Make position top left corner (xMin, yMax) and bottom right corner (xMax, yMin)
     Position topLeft(xMin, yMax);
     Position bottomRight(xMax, yMin);
-    
-    Position *cornerPtr = new Position[2];
-    cornerPtr[0] = topLeft;
-    cornerPtr[1] = bottomRight;
 
-    return cornerPtr;
+	BoundingBox boundingBox;
+	boundingBox.topLeft = topLeft;
+	boundingBox.bottomRight = bottomRight;
+
+    return boundingBox;
 }

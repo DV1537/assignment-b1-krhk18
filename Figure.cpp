@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Figure.h"
 
+
 Figure::Figure() : polygonPtr(nullptr), numberOfShapes(0), capacity(0)
 {
 }
@@ -33,7 +34,7 @@ void Figure::addShape(Polygon *polygon)
 }
 
 // Gets boundingbox top left and bottom right positions
-Position* Figure::getTotalBoundingBox()
+BoundingBox Figure::getTotalBoundingBox()
 {
     double xMin = 0.0;
     double yMin = 0.0;
@@ -43,40 +44,36 @@ Position* Figure::getTotalBoundingBox()
     //Loop through Polygons in the Figure.
     for(int i = 0; i < numberOfShapes; i++)
     {
-        Position *tempPosPtr;
-        tempPosPtr = polygonPtr[i].getBoundingBox();
+        BoundingBox boundingBox;
+		boundingBox = polygonPtr[i].getBoundingBox();
         
-        if(tempPosPtr[0].xCoord < xMin)
+        if(boundingBox.topLeft.xCoord < xMin)
         {
-            xMin = tempPosPtr[0].xCoord;    //xMin
+            xMin = boundingBox.topLeft.xCoord;    //xMin
         }
-        if(tempPosPtr[0].yCoord > yMax)
+        if(boundingBox.topLeft.yCoord > yMax)
         {
-            yMax = tempPosPtr[0].yCoord;    //yMax
+            yMax = boundingBox.topLeft.yCoord;    //yMax
         }
-        if(tempPosPtr[1].xCoord > xMax)
+        if(boundingBox.bottomRight.xCoord > xMax)
         {
-           xMax = tempPosPtr[1].xCoord;     //xMax 
+           xMax = boundingBox.bottomRight.xCoord;     //xMax 
         }
-        if(tempPosPtr[1].yCoord < yMin)
+        if(boundingBox.bottomRight.yCoord < yMin)
         {
-            tempPosPtr[1].yCoord;           //yMin
+			boundingBox.bottomRight.yCoord;           //yMin
         }
-                
-        //Free memory
-        delete []tempPosPtr;
-        tempPosPtr = nullptr;
     }
 
     //Make position top left corner (xMin, yMax) and bottom right corner (xMax, yMin)
     Position topLeft(xMin, yMax);
     Position bottomRight(xMax, yMin);
     
-    Position *cornerPtr = new Position[2];
-    cornerPtr[0] = topLeft;
-    cornerPtr[1] = bottomRight;
+	BoundingBox boundingBox;
+	boundingBox.topLeft = topLeft;
+	boundingBox.bottomRight = bottomRight;
 
-    return cornerPtr;
+    return boundingBox;
 }
 
 //This is for being able to print the types of the shapes (polygons) stored in "Figure".

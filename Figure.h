@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include "Polygon.h"
+#include "BoundingBox.h"
 
 class Figure
 {
@@ -14,7 +15,7 @@ class Figure
         Figure();
         ~Figure();
         void addShape(Polygon *polygon);
-        Position* getTotalBoundingBox();
+        BoundingBox getTotalBoundingBox();
         friend std::ostream &operator<<(std::ostream &out, const Figure &figure);
 };
 
